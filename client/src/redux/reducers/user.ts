@@ -37,6 +37,9 @@ export const setCurrentUserAC = (user:any) => ({type:SET_CURRENT_USER,data:user}
 
 export const getUsersThunk = () => async (dispatch:Dispatch) => {
     const users = await getUsers();
+    dispatch(setCurrentUserAC(users.data.users[0]));
+
     dispatch(getUsersAC(users.data.users));
+
 }
 
