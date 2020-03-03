@@ -9,4 +9,4 @@ const mapStateToProps = (state:any) => ({
     currentUser: state.users.currentUser
 })
 
-export default connect(mapStateToProps,null)(UserCardContainer)
+export default connect(mapStateToProps)(UserCardContainer)

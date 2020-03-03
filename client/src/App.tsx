@@ -6,11 +6,11 @@ import UserCardContainer from './components/UserCard/UserCardContainer';
 import {BrowserRouter,Route} from 'react-router-dom';
 import './App.css'
 import EditUser from './components/EditUser/EditUser';
+import CreateUserPage from './components/CreateUser/CreateUserPage';
 
 function App(props:any) {
 
   useEffect(()=>{
-    console.log('rerendered')
     fetchUsers();
   },[])
 
@@ -20,13 +20,14 @@ function App(props:any) {
   return (
 
     <BrowserRouter>
-     {props.users && <div className="app">
+     {(props.users && props.currentUser)  && <div className="app">
 
         <UsersListContainer/>
         <div>
 
             <Route path="/" exact component={UserCardContainer}/>
             <Route path="/edit" component={EditUser}/>
+            <Route path="/create" component={CreateUserPage}/>
 
         </div> 
       </div>}

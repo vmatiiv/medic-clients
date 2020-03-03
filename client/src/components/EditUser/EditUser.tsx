@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 function EditUser(props:any) {
-    debugger;
     return (
         <div>
             <button onClick={props.history.goBack}> go back </button>

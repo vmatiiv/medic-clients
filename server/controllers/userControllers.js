@@ -5,10 +5,12 @@ const getUsers = async (req,res,next)=>{
     res.json({users});
 }
 
-const postUser =  (req,res)=>{
+const postUser =  async (req,res)=>{
     try {
+
         const {name,surname,country,birthday,sex,state,address} = req.body.data;
-        new Users({
+
+        const user = await new Users({
             name,
             surname,
             country,
@@ -18,7 +20,8 @@ const postUser =  (req,res)=>{
             address,
             id:uuidv4()
         }).save();
-        res.json({success:true,message:"saved"})
+
+        res.json({success:true ,user,message:"saved"})
     } catch (error) {
         res.json({success:false,message:error})
     }

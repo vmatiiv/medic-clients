@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from 'react'
 import User from './User'
+import {Link} from 'react-router-dom';
 
 function UsersList({users}:any) {
     const [query,setQuery] = useState('')
@@ -11,6 +12,7 @@ function UsersList({users}:any) {
     return (
         <div className="user-list">
             <input type="text" value={query} onChange={changeQuery}></input>
+            <Link to="/create">create</Link>
             {list}
         </div>
     )
