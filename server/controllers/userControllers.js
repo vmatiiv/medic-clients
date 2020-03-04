@@ -14,7 +14,7 @@ const postUser =  async (req,res)=>{
             name,
             surname,
             country,
-            birthday,
+            birthday:birthday.split('-').reverse().join('.'),
             sex,
             state,
             address,
@@ -31,12 +31,13 @@ const editUser = async (req,res)=>{
     try {
         const {birthday,sex,state,address,id} = req.body.data;
         const user = await Users.findOne({id});
-        user.birthday = birthday;
+        user.birthday = birthday.split('-').reverse().join('.');
         user.sex = sex;
         user.state = state;
         user.address = address;
         user.save()
-        res.json({success:true,message:"saved"})
+
+        res.json({success:true,user,message:"saved"})
     } catch (error) {
         res.json({success:false,message:error})
     }
@@ -63,7 +64,8 @@ const deleteUser = async (req,res) =>{
     try {
         const {id} = req.body
         await Users.deleteOne({id});
-        res.json({success:true,message:"deleted"})
+        const users = await Users.find();
+        res.json({success:true,users,message:"deleted"})
     } catch (error) {
         res.json({success:false,message:error})
     }

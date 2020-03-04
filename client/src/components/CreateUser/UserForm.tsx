@@ -8,7 +8,11 @@ let UserForm = ({handleSubmit}:InjectedFormProps) => {
 
         <Field name="name" component="input" type="text" placeholder="name"/>
         <Field name="surname" component="input" type="text" placeholder="surname"/>
-        {/* <Field name="sex" component="input" type="text" placeholder="name"/> */}
+        <label>Sex</label>
+        <div>
+          <label><Field name="sex" component="input" type="radio" value="male"/> Male</label>
+          <label><Field name="sex" component="input" type="radio" value="female"/> Female</label>
+        </div>
         <Field name="birthday" component="input" type="date" placeholder="birthday"/>
         <Field name="country" component="input" type="text" placeholder="country"/>
         <Field name="state" component="input" type="text" placeholder="state"/>

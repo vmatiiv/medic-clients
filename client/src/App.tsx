@@ -3,7 +3,7 @@ import {getUsersThunk} from './redux/reducers/user';
 import {connect} from 'react-redux'
 import UsersListContainer from './components/UsersList/UsersListContainer';
 import UserCardContainer from './components/UserCard/UserCardContainer';
-import {BrowserRouter,Route} from 'react-router-dom';
+import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import './App.css'
 import EditUser from './components/EditUser/EditUser';
 import CreateUserPage from './components/CreateUser/CreateUserPage';
@@ -23,13 +23,14 @@ function App(props:any) {
      {(props.users && props.currentUser)  && <div className="app">
 
         <UsersListContainer/>
-        <div>
-
-            <Route path="/" exact component={UserCardContainer}/>
-            <Route path="/edit" component={EditUser}/>
-            <Route path="/create" component={CreateUserPage}/>
-
-        </div> 
+          <div>
+            <Switch>
+              <Route path="/" exact component={UserCardContainer}/>
+              <Route path="/patient/:id" exact  component={UserCardContainer}/>
+              <Route path="/edit" component={EditUser}/>
+              <Route path="/create" component={CreateUserPage}/>
+            </Switch>
+          </div> 
       </div>}
     </BrowserRouter>
   )

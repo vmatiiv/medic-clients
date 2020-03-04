@@ -17,7 +17,7 @@ interface IcreateUser{
     adress:string
 };
 export const createUser = (data:IcreateUser):AxiosPromise => {
-    return api.post('user/create',{ data })
+    return api.post('user/create',{data })
 }
 
 

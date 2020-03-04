@@ -22,9 +22,10 @@ export const userReducer = (state={},action:Iaction) => {
             const users = action.data
             return {...state,users}
         }
-        case DELETE_USER:
-            return {...state}
-
+        case DELETE_USER:{
+            const users = action.data
+            return {...state,users}
+        }
         case SET_CURRENT_USER:
             const currentUser = action.data
             return {...state,currentUser};
@@ -34,6 +35,7 @@ export const userReducer = (state={},action:Iaction) => {
             users.users.push(action.data)
             return users
 
+
         default:
             return state;
     }
@@ -42,20 +44,24 @@ export const userReducer = (state={},action:Iaction) => {
 
 const getUsersAC = (users:any) => ({type:GET_USERS,data:users});
 const createUserAC = (user:any) => ({type:CREATE_USER,data:user});
-const  deleteUserAC = () => ({type:DELETE_USER});
-const editeUserAC = () => ({type:EDITE_USER});
+const  deleteUserAC = (users:any) => ({type:DELETE_USER,data:users});
+const editeUserAC = (user:any) => ({type:EDITE_USER,data:user});
 export const setCurrentUserAC = (user:any) => ({type:SET_CURRENT_USER,data:user})
 
 
 export const deleteUserThunk = (id:string) => async (dispatch:Dispatch) => {
     const response = await deleteUser(id);
-    response.data.success && dispatch(deleteUserAC());
+    response.data.success && dispatch(deleteUserAC(response.data.users));
+
+    response.data.success&& dispatch(setCurrentUserAC(response.data.users[0]));
+
+
 }
 
 export const createUserThunk = (user:any) => async (dispatch:Dispatch) => {
     const response = await createUser(user);
-
     response.data.success && dispatch(createUserAC(response.data.user))
+    response.data.success && dispatch(setCurrentUserAC(response.data.user));
 
 }
 
@@ -67,3 +73,7 @@ export const getUsersThunk = () => async (dispatch:Dispatch) => {
     dispatch(getUsersAC(users.data.users));
 }
 
+export const editUserThunk = (data:any) =>async (dispatch:Dispatch) => {
+    const response = await updateUser(data);
+    response.data.success && dispatch(setCurrentUserAC(response.data.user))
+}
